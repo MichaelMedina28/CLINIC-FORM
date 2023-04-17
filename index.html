@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <form id="clinicForm">
+        <div class="title">Fill up Form (Clinic)</div>
+        <img src="My project.png" alt="(City College of Calamba)">
+        <br>
+        <label for="fname">Full Name</label>
+        <input type="text" id="name" placeholder="Name">
+
+        <label for="fname">Symptoms</label>
+        <input type="symptoms" id="symptoms" placeholder="Symptoms">
+      
+        <label for="fname">Treatment</label>
+        <input type="treatment" id="treatment" placeholder="Treatment">
+
+        <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  
+      <script>
+        const form = document.getElementById("clinicForm");
+        form.addEventListener("submit", function(event) {
+          event.preventDefault();
+      
+          const name = document.getElementById("name").value;
+          const symptoms = document.getElementById("symptoms").value;
+          const treatment = document.getElementById("treatment").value;
+//input//
+
+var myHeaders = new Headers();
+myHeaders.append("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2Z2JneWpqa3ZmZmF1a25jenh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQwMzU3MDYsImV4cCI6MTk4OTYxMTcwNn0.RUg4gTX911eGBodG_howjq8wQqmPvfZ5LBhyd-G_Bj4");
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify([
+  {
+    "name": name,
+    "symptoms": symptoms,
+    "treatment": treatment
+  }
+]);
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://zvgbgyjjkvffauknczxy.supabase.co/rest/v1/try", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+        });
+
+
+      </script>
+      
+</body>
+</html>
